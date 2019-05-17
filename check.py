@@ -27,7 +27,7 @@ from scripts.test.shared import (
     binary_format_check, delete_from_orbit, fail, fail_with_error,
     fail_if_not_identical, fail_if_not_contained, has_vanilla_emcc,
     has_vanilla_llvm, minify_check, options, tests, requested, warnings,
-    has_shell_timeout, fail_if_not_identical_to_file, with_pass_debug
+    has_shell_timeout, fail_if_not_identical_to_file, with_pass_debug, test_out
 )
 
 # For shared.num_failures. Cannot import directly because modifications made in
@@ -36,8 +36,6 @@ from scripts.test import shared
 from scripts.test import asm2wasm
 from scripts.test import lld
 from scripts.test import wasm2js
-
-test_out = os.path.join(options.binaryen_root, 'out', 'test')
 
 if options.interpreter:
   print '[ using wasm interpreter at "%s" ]' % options.interpreter
@@ -572,9 +570,6 @@ def run_unittest():
 
 # Run all the tests
 def main():
-  if not os.path.exists(test_out):
-    os.makedirs(test_out)
-  os.chdir(test_out)
   run_help_tests()
   run_wasm_opt_tests()
   asm2wasm.test_asm2wasm()
